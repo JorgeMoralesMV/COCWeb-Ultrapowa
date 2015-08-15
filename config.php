@@ -1,14 +1,18 @@
 <?php
-//DB details
 $servername = "localhost";
 $username = "root";
 $password = "password";
 $dbname = "ucsdb"; 
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+mysql_connect($servername, $username, $password); 
+mysql_select_db($dbname);
+
+$db_link = mysql_connect('localhost', 'root', 'password');
+if(!$db_link){
+die('No se pudo conectar: ' . mysql_error());
+}
+$db_selected = mysql_select_db('ucsdb', $db_link);
+if(!$db_selected){
+die('No se selecciono la BD: ' . mysql_error());
+}
 ?>
