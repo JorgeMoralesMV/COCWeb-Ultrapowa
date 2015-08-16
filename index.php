@@ -21,7 +21,7 @@ $sql1=mysql_query("SELECT * FROM player");//cambiar nombre de la tabla de busque
 foreach($players1 as $player){
 	$th = $player['avatarObj']['townhall_level'] + 1;
 }
-$sql=mysql_query("SELECT * FROM player order by ".$th." asc") or die ('Database name is not available!');
+$sql=mysql_query("SELECT * FROM player order by ".$player['avatarObj']['townhall_level']." asc") or die ('Database name is not available!');
 //cambiar nombre de la tabla de busqueda
         while($row = mysql_fetch_array($sql)){ 
 		$playerID = $row['PlayerId'];
