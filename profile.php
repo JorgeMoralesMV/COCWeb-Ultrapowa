@@ -1,13 +1,21 @@
+<?PHP
+include "config.php";
+?>
 <html>
 <head>
+<link rel="icon" type="image/x-icon" href="ClashFavicon.ico">
 <link rel="stylesheet" href="style.css" />
-<title>Profile Players</title>
+<title><?=$myservername;?> - Profile Players</title>
 </head>
 <body>
-<br />
+<?PHP include "header.php"; ?><br />
 <?PHP
-include('config.php');
-$sql=mysql_query("SELECT * FROM player WHERE PlayerId=".$_GET['id']."");
+$sql1=mysql_query("SELECT * FROM player WHERE playername=".$_GET['player']."");//cambiar nombre de la tabla de busqueda
+	
+
+?>
+<?PHP
+$sql=mysql_query("SELECT * FROM player ");
         while($row = mysql_fetch_array($sql)){ 
 		$playerID = $row['PlayerId'];
 		$AccountStatus = $row['AccountStatus'];
@@ -88,10 +96,9 @@ if($player["AccountStatus"] == 0){ $player["AccountStatus"] ='Normal';
 }
 if($player["AccountStatus"] <> 0){ $player["AccountStatus"] ='<font color="red">Banned</font>';
 }
-	echo'
-	<table class="themain" align="center" cellpadding="2" cellspacing="0" width="10%"><tbody><tr>
+echo '<table class="themain" align="center" cellpadding="2" cellspacing="0" width="10%"><tbody><tr>
 	  <td>
-	<table width="700" class="themain" border="0" align="center" cellpadding="1" cellspacing="1" >
+	<table width="700" class="themain" border="0" align="center" cellpadding="1" cellspacing="1">
   <tr class="trhover">
     <td height="26" colspan="3" class="topp2"><b>Profile - <b>'.$player["AccountPrivileges"].'</b></b> - <font color="red"><b>'.$playername.'</b></font></b></td>
   </tr>
@@ -128,18 +135,36 @@ if($player["AccountStatus"] <> 0){ $player["AccountStatus"] ='<font color="red">
     <td width="174" align="center">'.$player["AccountStatus"].'</td>
     <td colspan="2">&nbsp;</td>
     </tr>
-  </table>
+  </table></table>
 <br>
-<table class="themain" align="center" cellpadding="2" cellspacing="0" width="100%">
+<table class="themain" align="center" cellpadding="2" cellspacing="0" width="10%"><tbody><tr>
+	  <td>
+	<table width="700" class="themain" border="0" align="center" cellpadding="1" cellspacing="1">
   <tr>
     <td class="topp2">Buildings</td>
   </tr>
   <tr class="trhover">
     <td>'.$player["gameobjects"].'</td>
   </tr>
-</table>
-</table>';
+</table></table>'; ?>
+	<br>
+<table class="themain" align="center" cellpadding="2" cellspacing="0" width="48%"><tbody><tr>
+  <td>
+<table class="themain" border="0" align="center" cellpadding="1" cellspacing="1" width="100%">
+  <tr>
+    <td align="center" valign="top" class="topp2">Signature</td>
+  </tr>
+	<?PHP echo '
+  <tr class="trhover">
+    <td align="center" valign="center"><br />
+	<img src="http://coftla.sytes.net/signature.php?id='.$player["PlayerId"].'" alt="" width="420" height="100" border="0"><br /><br />
+	<input type="text" size="50" readonly="" value="'.$site.'/signature.php?id='.$player["PlayerId"].'"><br /><br /></td>
+    </tr>';
 	}
 ?>
+</table>
+</table>
+<br>
+<?PHP include "footer.php"; ?>
 </body>
 </html>
